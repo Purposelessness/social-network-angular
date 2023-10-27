@@ -57,7 +57,7 @@ export class NewsFeedProviderService {
 
             newsFeedResponse.map((newsFeedResponseItem) => {
               newsFeed.push({
-                uid: newsFeedResponseItem.id,
+                uid: newsFeedResponseItem.uid,
                 authorName: 'unknown',
                 text: newsFeedResponseItem.text,
                 createdAt: newsFeedResponseItem.createdAt,
