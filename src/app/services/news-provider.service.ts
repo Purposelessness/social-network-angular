@@ -55,7 +55,6 @@ export class NewsProviderService {
   }
 
   public getNewsFeed(id: bigint): Observable<News> {
-
     const getNewsFeed = (observer: Subscriber<News>) => {
       this.httpClient.get<NewsFeedResponseItem[]>(CLIENTS.NEWS_FEED.GET_NEWS_FEED(id), {
         withCredentials: true,

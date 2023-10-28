@@ -20,5 +20,7 @@ export const CLIENTS = {
   API_PROXY: {
     REGISTER: (): string => `${BASE_URL}/register`,
     LOGIN: (): string => `${BASE_URL}/login`,
+    GET_USER_SELF_INFO: (): string => `${BASE_URL}/get-info`,
+    GET_USER_INFO: (uid: bigint): string => `${BASE_URL}/get-info/${uid}`,
   }
 };

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {UserInfo} from '../types/user-info';
+import {UserAuthInfo, UserInfo} from '../types/user-info';
 import {CLIENTS} from '../consts/clients';
 
 @Injectable({
@@ -9,6 +9,13 @@ import {CLIENTS} from '../consts/clients';
 })
 export class UserInfoProviderService {
   constructor(private readonly httpClient: HttpClient) {
+  }
+
+  public getUserAuthInfo(uid?: bigint): Observable<UserAuthInfo> {
+    const uri = uid == null ? CLIENTS.API_PROXY.GET_USER_SELF_INFO() : CLIENTS.API_PROXY.GET_USER_INFO(uid);
+    return this.httpClient.get<UserAuthInfo>(uri, {
+      withCredentials: true,
+    });
   }
 
   public getUsersInfo(uids: bigint[]): Observable<UserInfo[]> {
