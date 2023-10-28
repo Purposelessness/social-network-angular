@@ -1,11 +1,8 @@
-<div *ngIf="!userInfo">
+<app-user-card *ngIf="userInfo" [userInfo]="userInfo"></app-user-card>
+<br>
+<app-news-list *ngIf="userNewsIdList" [newsIdList]="userNewsIdList"></app-news-list>
+
+<div *ngIf="!userInfo || !userNewsIdList">
   <mat-spinner></mat-spinner>
 </div>
 
-<div *ngIf="userInfo">
-
-  <app-user-card [userInfo]="userInfo"></app-user-card>
-  <br>
-  <app-news-feed [uid]="userInfo.id"></app-news-feed>
-
-</div>

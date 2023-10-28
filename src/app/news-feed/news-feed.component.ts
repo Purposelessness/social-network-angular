@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import {News} from '../types/news';
 
-import {NewsFeedProviderService} from '../services/news-feed-provider.service';
+import {NewsProviderService} from '../services/news-provider.service';
 
 @Component({
   selector: 'app-news-feed',
@@ -14,7 +14,7 @@ export class NewsFeedComponent implements OnInit {
 
   public newsFeed: News[] = [];
 
-  constructor(private readonly newsFeedProvider: NewsFeedProviderService) {
+  constructor(private readonly newsProvider: NewsProviderService) {
   }
 
   public ngOnInit(): void {
@@ -26,7 +26,7 @@ export class NewsFeedComponent implements OnInit {
       console.error('uid is not set');
       return;
     }
-    this.newsFeedProvider.getNewsFeed(this.uid).subscribe({
+    this.newsProvider.getNewsFeed(this.uid).subscribe({
       next: (news) => this.newsFeed.push(news),
       error: (e) => console.error(e),
     });

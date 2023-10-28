@@ -23,6 +23,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import {AuthPopupComponent} from './auth-popup/auth-popup.component';
 import {RegistrationDialogComponent} from './registration-dialog/registration-dialog.component';
+import { NewsListComponent } from './news-list/news-list.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {RegistrationDialogComponent} from './registration-dialog/registration-di
     AuthDialogComponent,
     AuthPopupComponent,
     RegistrationDialogComponent,
+    NewsListComponent,
   ],
   imports: [
     AppRoutingModule,

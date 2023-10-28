@@ -9,7 +9,9 @@ import {UserInfoProviderService} from '../services/user-info-provider.service';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
+  public uid?: bigint;
   public userInfo?: UserInfo;
+  public userNewsIdList?: bigint[];
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -18,22 +20,43 @@ export class UserProfileComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.getUid();
     this.getUserInfo();
+    this.getUserNewsIdList();
   }
 
-  private getUserInfo(): void {
+  private getUid(): void {
     const idStr = this.route.snapshot.paramMap.get('id');
     if (idStr == null) {
       console.error('id is not set');
       return;
     }
 
-    const id = BigInt(idStr);
-    this.userInfoProviderService.getUserInfo(id).subscribe({
+    this.uid = BigInt(idStr);
+  }
+
+  private getUserInfo(): void {
+    if (this.uid == null) {
+      return;
+    }
+
+    this.userInfoProviderService.getUserInfo(this.uid).subscribe({
       next: (userInfo) => {
         this.userInfo = userInfo
       },
       error: (e) => console.error(e),
     });
+  }
+
+  private getUserNewsIdList(): void {
+    if (this.uid == null) {
+      return;
+    }
+
+    this.userInfoProviderService.getNewsListIds(this.uid).subscribe({
+        next: (newsIds) => this.userNewsIdList = newsIds,
+        error: (e) => console.error(e),
+      },
+    );
   }
 }

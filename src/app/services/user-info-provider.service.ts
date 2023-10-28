@@ -46,4 +46,21 @@ export class UserInfoProviderService {
       });
     });
   }
+
+  public getNewsListIds(uids: bigint): Observable<bigint[]> {
+    type Response = {
+      uid: bigint,
+      ids: bigint[],
+    }
+    return new Observable<bigint[]>((observer) => {
+      const response = this.httpClient.get<Response>(CLIENTS.USER_TO_NEWS_REPOSITORY.GET_NEWS_LIST(uids), {
+        withCredentials: true,
+      });
+      response.subscribe({
+        next: (r) => observer.next(r.ids),
+        error: (e) => observer.error(e),
+        complete: () => observer.complete(),
+      });
+    });
+  }
 }
