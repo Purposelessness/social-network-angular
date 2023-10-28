@@ -6,7 +6,6 @@ import {UserProfileComponent} from './user-profile/user-profile.component';
 import {FriendListComponent} from './friend-list/friend-list.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   {path: 'feed', component: NewsFeedComponent},
   {path: 'user/:id', component: UserProfileComponent},
   {path: 'friends', component: FriendListComponent},

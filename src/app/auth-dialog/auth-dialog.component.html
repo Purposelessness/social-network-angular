@@ -1,13 +1,13 @@
 <div mat-dialog-content>
   <form [formGroup]="form">
 
-    <mat-form-field appearance="fill">
+    <mat-form-field class="mw" appearance="fill">
       <mat-label>Login</mat-label>
       <input matInput placeholder="some-cool-nickname" formControlName="login">
       <mat-error *ngIf="form.get('login')?.invalid"> {{ getErrorMessage('login') }} </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field class="mw" appearance="fill">
       <mat-label>Password</mat-label>
       <input matInput type="{{ hidePassword ? 'password' : 'text' }}"
              placeholder="********" formControlName="password">
@@ -22,7 +22,7 @@
 
   </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button (click)="onSubmit()" cdkFocusInitial>Log in</button>
+<div mat-dialog-actions class="mw">
+  <button mat-raised-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button (click)="onSubmit()">Log in</button>
 </div>
