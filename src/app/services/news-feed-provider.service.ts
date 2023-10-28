@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {News} from '../types/news';
 import {Observable, Subscriber} from 'rxjs';
 import {UserInfo} from '../types/user-info';
-import {API_PATHS} from '../consts/api-paths';
+import {CLIENTS} from '../consts/clients';
 
 interface NewsFeedResponseItem {
   id: bigint,
@@ -30,7 +30,7 @@ export class NewsFeedProviderService {
       const authorIds = newsFeed.map((news) => news.uid);
       const uniqueAuthorIds = [...new Set(authorIds)];
 
-      this.httpClient.get<UserInfo[]>(API_PATHS.USER_REPOSITORY.GET_USERS_INFO(uniqueAuthorIds))
+      this.httpClient.get<UserInfo[]>(CLIENTS.USER_REPOSITORY.GET_USERS_INFO(uniqueAuthorIds))
         .subscribe({
           next: (authorNamesResponse) => {
             const authorNamesMap: Map<bigint, string> = new Map();
@@ -50,7 +50,7 @@ export class NewsFeedProviderService {
     };
 
     const getNewsFeed = (observer: Subscriber<News>) => {
-      this.httpClient.get<NewsFeedResponseItem[]>(API_PATHS.NEWS_FEED.GET_NEWS_FEED(id))
+      this.httpClient.get<NewsFeedResponseItem[]>(CLIENTS.NEWS_FEED.GET_NEWS_FEED(id))
         .subscribe({
           next: (newsFeedResponse) => {
             let newsFeed: News[] = [];

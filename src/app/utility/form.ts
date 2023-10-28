@@ -8,9 +8,6 @@ export function getErrorMessage(form: FormGroup, formControl: string): string {
   if (control.hasError('required')) {
     return 'You must enter a value';
   }
-  if (control.hasError('email')) {
-    return 'Not a valid email';
-  }
   if (control.hasError('minlength')) {
     return `Min length is ${control.getError('minlength').requiredLength}`;
   }
