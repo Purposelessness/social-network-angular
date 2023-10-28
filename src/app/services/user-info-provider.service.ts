@@ -25,4 +25,19 @@ export class UserInfoProviderService {
       });
     });
   }
+
+  public getFriends(uid: bigint): Observable<bigint[]> {
+    type Response = {
+      uid: bigint,
+      ids: bigint[],
+    }
+    return new Observable<bigint[]>((observer) => {
+      const response = this.httpClient.get<Response>(API_PATHS.USER_TO_FRIEND_REPOSITORY.GET_FRIENDS(uid));
+      response.subscribe({
+        next: (r) => observer.next(r.ids),
+        error: (e) => observer.error(e),
+        complete: () => observer.complete(),
+      });
+    });
+  }
 }

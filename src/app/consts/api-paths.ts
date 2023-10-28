@@ -8,4 +8,7 @@ export const API_PATHS = {
   NEWS_FEED: {
     GET_NEWS_FEED: (uid: bigint): string => `${BASE_URL}/news-feed/${uid}`,
   },
+  USER_TO_FRIEND_REPOSITORY: {
+    GET_FRIENDS: (uid: bigint): string => `${BASE_URL}/user-to-friend-repository/${uid}`,
+  }
 };
