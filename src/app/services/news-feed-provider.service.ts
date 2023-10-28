@@ -30,7 +30,9 @@ export class NewsFeedProviderService {
       const authorIds = newsFeed.map((news) => news.uid);
       const uniqueAuthorIds = [...new Set(authorIds)];
 
-      this.httpClient.get<UserInfo[]>(CLIENTS.USER_REPOSITORY.GET_USERS_INFO(uniqueAuthorIds))
+      this.httpClient.get<UserInfo[]>(CLIENTS.USER_REPOSITORY.GET_USERS_INFO(uniqueAuthorIds), {
+        withCredentials: true,
+      })
         .subscribe({
           next: (authorNamesResponse) => {
             const authorNamesMap: Map<bigint, string> = new Map();
@@ -50,7 +52,9 @@ export class NewsFeedProviderService {
     };
 
     const getNewsFeed = (observer: Subscriber<News>) => {
-      this.httpClient.get<NewsFeedResponseItem[]>(CLIENTS.NEWS_FEED.GET_NEWS_FEED(id))
+      this.httpClient.get<NewsFeedResponseItem[]>(CLIENTS.NEWS_FEED.GET_NEWS_FEED(id), {
+        withCredentials: true,
+      })
         .subscribe({
           next: (newsFeedResponse) => {
             let newsFeed: News[] = [];

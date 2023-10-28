@@ -34,7 +34,6 @@ export class RegistrationDialogComponent {
       console.info('invalid form');
       return;
     }
-    console.log(this.form.value);
     this.authProxyControllerService.register({
       name: `${this.form.value.firstName} ${this.form.value.surname}`,
       birthDate: this.form.value.birthDate.toISOString().split('T')[0],

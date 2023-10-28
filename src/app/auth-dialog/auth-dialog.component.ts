@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import {getErrorMessage} from '../utility/form';
+import {AuthProxyControllerService} from '../services/auth-proxy-controller.service';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -19,6 +20,7 @@ export class AuthDialogComponent {
   constructor(
     private readonly dialogRef: MatDialogRef<AuthDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private readonly authProxyControllerService: AuthProxyControllerService,
   ) {
   }
 
@@ -27,7 +29,16 @@ export class AuthDialogComponent {
       console.info('invalid form');
       return;
     }
-    this.dialogRef.close();
+    this.authProxyControllerService.login({
+      login: this.form.value.login,
+      password: this.form.value.password,
+    }).subscribe({
+      next: () => {
+        console.log('successfully logged in');
+        this.dialogRef.close();
+      },
+      error: (error) => console.log(error),
+    });
   }
 
   public onCancel(): void {

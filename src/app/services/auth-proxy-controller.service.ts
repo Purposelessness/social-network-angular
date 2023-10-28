@@ -10,6 +10,11 @@ interface RegisterRequest {
   password: string;
 }
 
+interface LoginRequest {
+  login: string;
+  password: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,5 +26,11 @@ export class AuthProxyControllerService {
 
   public register(request: RegisterRequest) {
     return this.httpClient.post(CLIENTS.API_PROXY.REGISTER(), request);
+  }
+
+  public login(request: LoginRequest) {
+    return this.httpClient.post(CLIENTS.API_PROXY.LOGIN(), request, {
+      withCredentials: true,
+    });
   }
 }
