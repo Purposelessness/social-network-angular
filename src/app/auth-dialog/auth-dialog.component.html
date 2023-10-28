@@ -1,0 +1,28 @@
+<div mat-dialog-content>
+  <form [formGroup]="form">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Login</mat-label>
+      <input matInput placeholder="some-cool-nickname" formControlName="login">
+      <mat-error *ngIf="form.get('login')?.invalid"> {{ getErrorMessage('login') }} </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput type="{{ hidePassword ? 'password' : 'text' }}"
+             placeholder="********" formControlName="password">
+      <button mat-icon-button matSuffix
+              (click)="hidePassword = !hidePassword"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="form.get('password')?.invalid"> {{ getErrorMessage('password') }} </mat-error>
+    </mat-form-field>
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSubmit()" cdkFocusInitial>Log in</button>
+</div>
