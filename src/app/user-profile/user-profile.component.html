@@ -1,0 +1,21 @@
+<div *ngIf="!userInfo">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="userInfo">
+
+  <mat-card>
+    <mat-card-title> {{ userInfo.name }} </mat-card-title>
+    <img mat-card-image src="{{ userInfo.imageUri }}" alt="{{ userInfo.name }}"/>
+    <mat-card-content>
+      <span> {{ userInfo.email }} </span>
+      <br>
+      <span> {{ userInfo.birthDate }} </span>
+    </mat-card-content>
+  </mat-card>
+
+  <br>
+
+  <app-news-feed [uid]="userInfo.id"></app-news-feed>
+
+</div>
