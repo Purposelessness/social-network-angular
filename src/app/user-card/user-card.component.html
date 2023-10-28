@@ -1,0 +1,9 @@
+<mat-card *ngIf="userInfo">
+  <mat-card-title> {{ userInfo.name }} </mat-card-title>
+  <img mat-card-image src="{{ userInfo.imageUri }}" alt="{{ userInfo.name }}"/>
+  <mat-card-content>
+    <span> {{ userInfo.email }} </span>
+    <br>
+    <span> {{ userInfo.birthDate }} </span>
+  </mat-card-content>
+</mat-card>

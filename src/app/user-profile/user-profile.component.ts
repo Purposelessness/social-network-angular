@@ -18,10 +18,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.getUserProfile();
+    this.getUserInfo();
   }
 
-  private getUserProfile(): void {
+  private getUserInfo(): void {
     const idStr = this.route.snapshot.paramMap.get('id');
     if (idStr == null) {
       console.error('id is not set');
