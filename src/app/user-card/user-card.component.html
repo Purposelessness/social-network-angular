@@ -1,5 +1,7 @@
 <mat-card *ngIf="userInfo">
-  <mat-card-title> {{ userInfo.name }} </mat-card-title>
+  <mat-card-header>
+    <mat-card-title> {{ userInfo.name }} </mat-card-title>
+  </mat-card-header>
   <img mat-card-image src="{{ userInfo.imageUri }}" alt="{{ userInfo.name }}"/>
   <mat-card-content>
     <span> {{ userInfo.email }} </span>
