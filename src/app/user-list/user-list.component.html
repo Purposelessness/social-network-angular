@@ -1,0 +1,7 @@
+<div *ngIf="!users">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="users" *ngFor="let user of users">
+  <app-user-card [userInfo]="user" [useNameAsLink]="true"></app-user-card>
+</div>

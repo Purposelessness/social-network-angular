@@ -4,6 +4,7 @@ export const BASE_URL: string = `${DOMAIN}/api`;
 export const CLIENTS = {
   USER_REPOSITORY: {
     GET_USERS_INFO: (uids: bigint[]): string => `${BASE_URL}/user-repository?ids=${uids.join(',')}`,
+    GET_ALL_USERS: (): string => `${BASE_URL}/user-repository`,
   },
   NEWS_REPOSITORY: {
     GET_NEWS: (ids: bigint[]): string => `${BASE_URL}/news-repository?ids=${ids.join(',')}`,

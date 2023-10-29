@@ -18,6 +18,12 @@ export class UserInfoProviderService {
     });
   }
 
+  public getAllUsers(): Observable<UserInfo[]> {
+    return this.httpClient.get<UserInfo[]>(CLIENTS.USER_REPOSITORY.GET_ALL_USERS(), {
+      withCredentials: true,
+    });
+  }
+
   public getUsersInfo(uids: bigint[]): Observable<UserInfo[]> {
     return this.httpClient.get<UserInfo[]>(CLIENTS.USER_REPOSITORY.GET_USERS_INFO(uids), {
       withCredentials: true,

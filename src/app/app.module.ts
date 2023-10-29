@@ -26,6 +26,7 @@ import {RegistrationDialogComponent} from './registration-dialog/registration-di
 import { NewsListComponent } from './news-list/news-list.component';
 
 import {CookieService} from 'ngx-cookie-service';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {CookieService} from 'ngx-cookie-service';
     AuthPopupComponent,
     RegistrationDialogComponent,
     NewsListComponent,
+    UserListComponent,
   ],
   imports: [
     AppRoutingModule,

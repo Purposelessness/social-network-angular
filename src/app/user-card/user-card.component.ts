@@ -9,4 +9,5 @@ import {UserInfo} from '../types/user-info';
 })
 export class UserCardComponent {
   @Input() userInfo?: UserInfo;
+  @Input() useNameAsLink = false;
 }

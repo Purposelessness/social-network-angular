@@ -1,11 +1,26 @@
 <mat-card *ngIf="userInfo">
+
   <mat-card-header>
-    <mat-card-title> {{ userInfo.name }} </mat-card-title>
+    <mat-card-title>
+
+      <div [ngSwitch]="useNameAsLink">
+        <div *ngSwitchCase="true">
+          <a [routerLink]="['/user', userInfo.id]"> {{ userInfo.name }} </a>
+        </div>
+        <div *ngSwitchDefault>
+          <span> {{ userInfo.name }} </span>
+        </div>
+      </div>
+
+    </mat-card-title>
   </mat-card-header>
+
   <img mat-card-image src="{{ userInfo.imageUri }}" alt="{{ userInfo.name }}"/>
+
   <mat-card-content>
     <span> {{ userInfo.email }} </span>
     <br>
     <span> {{ userInfo.birthDate }} </span>
   </mat-card-content>
+
 </mat-card>
