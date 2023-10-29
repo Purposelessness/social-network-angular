@@ -1,3 +1,7 @@
+<div *ngIf="newsFeed.length === 0">
+  <p>No news</p>
+</div>
+
 <div class="news" *ngFor="let news of newsFeed">
   <app-news-item [news]="news"></app-news-item>
 </div>

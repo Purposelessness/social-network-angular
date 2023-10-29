@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+
 import {UserInfo} from '../types/user-info';
 import {UserInfoProviderService} from '../services/user-info-provider.service';
+import {HelperService} from '../services/helper.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,8 +16,10 @@ export class UserProfileComponent implements OnInit {
   public userNewsIdList?: bigint[];
 
   constructor(
-    private readonly route: ActivatedRoute,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router,
     private readonly userInfoProviderService: UserInfoProviderService,
+    private readonly helper: HelperService,
   ) {
   }
 
@@ -26,13 +30,21 @@ export class UserProfileComponent implements OnInit {
   }
 
   private getUid(): void {
-    const idStr = this.route.snapshot.paramMap.get('id');
-    if (idStr == null) {
-      console.error('id is not set');
-      return;
-    }
+    this.activatedRoute.paramMap.subscribe(
+      (params) => {
+        const idStr = params.get('id');
+        if (idStr == null) {
+          this.redirectToUserProfile();
+        } else {
+          this.uid = BigInt(idStr);
+        }
+      },
+    );
+  }
 
-    this.uid = BigInt(idStr);
+  private redirectToUserProfile(): void {
+    const uid = this.helper.getUid();
+    const _ = this.router.navigateByUrl(`/user/${uid}`);
   }
 
   private getUserInfo(): void {

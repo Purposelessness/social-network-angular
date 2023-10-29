@@ -7,6 +7,7 @@ import {FriendListComponent} from './friend-list/friend-list.component';
 
 const routes: Routes = [
   {path: 'feed', component: NewsFeedComponent},
+  {path: 'user', component: UserProfileComponent},
   {path: 'user/:id', component: UserProfileComponent},
   {path: 'friends', component: FriendListComponent},
 ];

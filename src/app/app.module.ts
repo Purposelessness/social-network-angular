@@ -25,6 +25,8 @@ import {AuthPopupComponent} from './auth-popup/auth-popup.component';
 import {RegistrationDialogComponent} from './registration-dialog/registration-dialog.component';
 import { NewsListComponent } from './news-list/news-list.component';
 
+import {CookieService} from 'ngx-cookie-service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +57,7 @@ import { NewsListComponent } from './news-list/news-list.component';
     MatIconModule,
     MatTabsModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

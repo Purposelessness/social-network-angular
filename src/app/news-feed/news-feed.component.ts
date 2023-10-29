@@ -3,7 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {News} from '../types/news';
 
 import {NewsProviderService} from '../services/news-provider.service';
-import {UserInfoProviderService} from '../services/user-info-provider.service';
+import {HelperService} from '../services/helper.service';
 
 @Component({
   selector: 'app-news-feed',
@@ -16,8 +16,8 @@ export class NewsFeedComponent implements OnInit {
   public newsFeed: News[] = [];
 
   constructor(
-    private readonly userInfoProvider: UserInfoProviderService,
     private readonly newsProvider: NewsProviderService,
+    private readonly helper: HelperService,
   ) {
   }
 
@@ -26,15 +26,10 @@ export class NewsFeedComponent implements OnInit {
   }
 
   getNewsFeed() {
-    this.userInfoProvider.getUserAuthInfo().subscribe({
-      next: (info) => {
-        this.newsProvider.getNewsFeed(info.uid).subscribe({
-          next: (news) => {
-            console.log(news);
-            this.newsFeed.push(news)
-          },
-          error: (e) => console.error(e),
-        });
+    this.newsProvider.getNewsFeed(this.helper.getUid()).subscribe({
+      next: (news) => {
+        console.log(news);
+        this.newsFeed.push(news);
       },
       error: (e) => console.error(e),
     });

@@ -26,7 +26,6 @@ export class FriendListComponent implements OnInit {
     this.userInfoProviderService.getFriends(this.userId).subscribe({
       next: (friendIds) => {
         if (friendIds.length === 0) {
-          console.log('no friends');
           return;
         }
 

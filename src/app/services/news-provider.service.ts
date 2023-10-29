@@ -21,6 +21,10 @@ export class NewsProviderService {
   }
 
   public getNewsList(ids: bigint[]): Observable<News> {
+    if (ids.length === 0) {
+      return new Observable<News>((observer) => observer.complete());
+    }
+
     const getNews = (observer: Subscriber<News>) => {
       type NewsResponseItem = {
         id: bigint,
