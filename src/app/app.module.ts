@@ -28,6 +28,10 @@ import { NewsListComponent } from './news-list/news-list.component';
 import {CookieService} from 'ngx-cookie-service';
 import { UserListComponent } from './user-list/user-list.component';
 import { AddNewsDialogComponent } from './add-news-dialog/add-news-dialog.component';
+import { ChatListComponent } from './chat-list/chat-list.component';
+import { MessageCardComponent } from './message-card/message-card.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatCardComponent } from './chat-card/chat-card.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +47,10 @@ import { AddNewsDialogComponent } from './add-news-dialog/add-news-dialog.compon
     NewsListComponent,
     UserListComponent,
     AddNewsDialogComponent,
+    ChatListComponent,
+    MessageCardComponent,
+    ChatComponent,
+    ChatCardComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -1,0 +1,13 @@
+<div *ngIf="!chat">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="chat">
+  <div *ngIf="chat.messages.length === 0">
+    <p>No messages yet</p>
+  </div>
+
+  <div *ngFor="let message of chat!.messages">
+    <app-message-card [message]="message"></app-message-card>
+  </div>
+</div>

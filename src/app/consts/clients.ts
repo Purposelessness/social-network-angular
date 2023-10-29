@@ -25,5 +25,10 @@ export const CLIENTS = {
     LOGIN: (): string => `${BASE_URL}/login`,
     GET_USER_SELF_INFO: (): string => `${BASE_URL}/get-info`,
     GET_USER_INFO: (uid: bigint): string => `${BASE_URL}/get-info/${uid}`,
-  }
+  },
+  CHAT_REPOSITORY: {
+    GET_USER_CHATS: (uid: bigint): string => `${BASE_URL}/chat-repository/user/${uid}`,
+    GET_CHATS: (chatId: bigint[]): string => `${BASE_URL}/chat-repository/?ids=${chatId.join(',')}`,
+    CREATE_CHAT: (): string => `${BASE_URL}/chat-repository`,
+  },
 };
