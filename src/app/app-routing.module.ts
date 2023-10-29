@@ -7,8 +7,10 @@ import {FriendListComponent} from './friend-list/friend-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {ChatListComponent} from './chat-list/chat-list.component';
 import {ChatComponent} from './chat/chat.component';
+import {MainPageComponent} from './main-page/main-page.component';
 
 const routes: Routes = [
+  {path: '', component: MainPageComponent},
   {path: 'feed', component: NewsFeedComponent},
   {path: 'friends', component: FriendListComponent},
   {path: 'user', component: UserProfileComponent},

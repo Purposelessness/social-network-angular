@@ -34,6 +34,7 @@ import {MessageCardComponent} from './message-card/message-card.component';
 import {ChatComponent} from './chat/chat.component';
 import {ChatCardComponent} from './chat-card/chat-card.component';
 import {AddMessageDialogComponent} from './add-message-dialog/add-message-dialog.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 const config: SocketIoConfig = {url: 'http://localhost:8080', options: {}};
 
@@ -56,6 +57,7 @@ const config: SocketIoConfig = {url: 'http://localhost:8080', options: {}};
     ChatComponent,
     ChatCardComponent,
     AddMessageDialogComponent,
+    MainPageComponent,
   ],
   imports: [
     AppRoutingModule,
