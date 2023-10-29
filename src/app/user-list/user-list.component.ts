@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserInfoProviderService} from '../services/user-info-provider.service';
 import {UserInfo} from '../types/user-info';
+import {HelperService} from '../services/helper.service';
 
 @Component({
   selector: 'app-user-list',
@@ -10,16 +11,24 @@ import {UserInfo} from '../types/user-info';
 export class UserListComponent implements OnInit {
   public users?: UserInfo[];
 
-  constructor(private readonly userInfoProviderService: UserInfoProviderService) {
+  private uid?: bigint;
+
+  constructor(
+    private readonly userInfoProviderService: UserInfoProviderService,
+    private readonly helper: HelperService,
+  ) {
   }
 
   public ngOnInit(): void {
+    this.uid = this.helper.getUid();
     this.getUsers();
   }
 
   private getUsers(): void {
     this.userInfoProviderService.getAllUsers().subscribe({
-      next: (users) => this.users = users,
+      next: (users) => {
+        this.users = users.filter((user) => BigInt(user.id) !== this.uid);
+      },
       error: (e) => console.error(e),
     });
   }
