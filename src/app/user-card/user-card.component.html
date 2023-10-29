@@ -1,6 +1,9 @@
 <mat-card *ngIf="userInfo">
 
   <mat-card-header>
+
+    <img mat-card-avatar src="{{ DOMAIN }}/{{ userInfo.imageUri }}" alt="{{ userInfo.name }}"/>
+
     <mat-card-title>
 
       <div [ngSwitch]="useNameAsLink">
@@ -13,14 +16,14 @@
       </div>
 
     </mat-card-title>
+
+    <mat-card-subtitle> {{ userInfo.email }} </mat-card-subtitle>
+
   </mat-card-header>
 
-  <img mat-card-image src="{{ userInfo.imageUri }}" alt="{{ userInfo.name }}"/>
-
   <mat-card-content>
-    <span> {{ userInfo.email }} </span>
+    <span> Birth date: {{ userInfo.birthDate }} </span>
     <br>
-    <span> {{ userInfo.birthDate }} </span>
   </mat-card-content>
 
   <mat-card-actions *ngIf="showActions">
