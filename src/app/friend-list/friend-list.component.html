@@ -1,5 +1,5 @@
 <div *ngIf="friendInfos.length > 0">
-  <app-user-card *ngFor="let friendInfo of friendInfos" [userInfo]="friendInfo"></app-user-card>
+  <app-user-card *ngFor="let friendInfo of friendInfos" [userInfo]="friendInfo" [useNameAsLink]="true"></app-user-card>
 </div>
 <div *ngIf="friendInfos.length === 0">
   <p>There are no friends to display.</p>

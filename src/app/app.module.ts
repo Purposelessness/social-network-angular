@@ -3,6 +3,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import {CookieService} from 'ngx-cookie-service';
+import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
+
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NewsFeedComponent} from './news-feed/news-feed.component';
@@ -23,16 +26,16 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import {AuthPopupComponent} from './auth-popup/auth-popup.component';
 import {RegistrationDialogComponent} from './registration-dialog/registration-dialog.component';
-import { NewsListComponent } from './news-list/news-list.component';
+import {NewsListComponent} from './news-list/news-list.component';
+import {UserListComponent} from './user-list/user-list.component';
+import {AddNewsDialogComponent} from './add-news-dialog/add-news-dialog.component';
+import {ChatListComponent} from './chat-list/chat-list.component';
+import {MessageCardComponent} from './message-card/message-card.component';
+import {ChatComponent} from './chat/chat.component';
+import {ChatCardComponent} from './chat-card/chat-card.component';
+import {AddMessageDialogComponent} from './add-message-dialog/add-message-dialog.component';
 
-import {CookieService} from 'ngx-cookie-service';
-import { UserListComponent } from './user-list/user-list.component';
-import { AddNewsDialogComponent } from './add-news-dialog/add-news-dialog.component';
-import { ChatListComponent } from './chat-list/chat-list.component';
-import { MessageCardComponent } from './message-card/message-card.component';
-import { ChatComponent } from './chat/chat.component';
-import { ChatCardComponent } from './chat-card/chat-card.component';
-import { AddMessageDialogComponent } from './add-message-dialog/add-message-dialog.component';
+const config: SocketIoConfig = {url: 'http://localhost:8080', options: {}};
 
 @NgModule({
   declarations: [
@@ -70,6 +73,7 @@ import { AddMessageDialogComponent } from './add-message-dialog/add-message-dial
     MatNativeDateModule,
     MatIconModule,
     MatTabsModule,
+    SocketIoModule.forRoot(config),
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

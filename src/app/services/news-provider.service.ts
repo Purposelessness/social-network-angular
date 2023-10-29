@@ -5,6 +5,7 @@ import {News} from '../types/news';
 import {Observable, Subscriber} from 'rxjs';
 import {UserInfo} from '../types/user-info';
 import {CLIENTS} from '../consts/clients';
+import {Socket} from 'ngx-socket-io';
 
 type NewsFeedResponseItem = {
   id: bigint,
@@ -17,7 +18,10 @@ type NewsFeedResponseItem = {
   providedIn: 'root',
 })
 export class NewsProviderService {
-  constructor(private readonly httpClient: HttpClient) {
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly socket: Socket,
+  ) {
   }
 
   public getNewsList(ids: bigint[]): Observable<News> {
@@ -125,4 +129,7 @@ export class NewsProviderService {
     });
   }
 
+  public getNewsStream(): Observable<News> {
+    return this.socket.fromEvent<News>('news');
+  }
 }

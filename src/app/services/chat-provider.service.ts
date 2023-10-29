@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 
-import {Chat} from '../types/chat';
-import {Observable} from 'rxjs';
+import {Socket} from 'ngx-socket-io';
+
+import {Chat, Message} from '../types/chat';
+import {Observable, Subscriber} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {CLIENTS} from '../consts/clients';
 
@@ -18,6 +20,7 @@ type AddMessageRequest = {
 export class ChatProviderService {
   constructor(
     private readonly httpClient: HttpClient,
+    private readonly socket: Socket,
   ) {
   }
 
@@ -45,5 +48,9 @@ export class ChatProviderService {
     return this.httpClient.post<void>(CLIENTS.CHAT_REPOSITORY.ADD_MESSAGE_TO_CHAT(chatId), message, {
       withCredentials: true,
     });
+  }
+
+  public getMessageStream(): Observable<Message> {
+    return this.socket.fromEvent<Message>('message');
   }
 }

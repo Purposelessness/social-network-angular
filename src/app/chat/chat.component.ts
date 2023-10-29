@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {forkJoin, Observable} from 'rxjs';
 
-import {Chat} from '../types/chat';
+import {Chat, Message} from '../types/chat';
 import {ChatProviderService} from '../services/chat-provider.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AddMessageDialogComponent} from '../add-message-dialog/add-message-dialog.component';
@@ -27,6 +27,16 @@ export class ChatComponent implements OnInit {
 
   public ngOnInit(): void {
     this.getChat();
+
+    this.chatProviderService.getMessageStream().subscribe({
+      next: (message) => {
+        if (this.chat?.id === message.chatId) {
+          this.fillMessageAuthorName(message);
+          this.chat!.messages.push(message);
+        }
+      },
+      error: (e) => console.error(e),
+    });
   }
 
   private getChat(): void {
@@ -55,6 +65,15 @@ export class ChatComponent implements OnInit {
         for (let i = 0; i < users.length; i++) {
           chat.messages[i].authorName = users[i].name;
         }
+      },
+      error: (e) => console.error(e),
+    });
+  }
+
+  private fillMessageAuthorName(message: Message): void {
+    this.userInfoProviderService.getUserInfo(message.authorId).subscribe({
+      next: (user) => {
+        message.authorName = user.name;
       },
       error: (e) => console.error(e),
     });
