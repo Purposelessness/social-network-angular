@@ -3,6 +3,8 @@
 </div>
 
 <div *ngIf="chat">
+  <button mat-button type="button" (click)="openAddMessagePopup()">Add message</button>
+
   <div *ngIf="chat.messages.length === 0">
     <p>No messages yet</p>
   </div>

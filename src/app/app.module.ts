@@ -32,6 +32,7 @@ import { ChatListComponent } from './chat-list/chat-list.component';
 import { MessageCardComponent } from './message-card/message-card.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatCardComponent } from './chat-card/chat-card.component';
+import { AddMessageDialogComponent } from './add-message-dialog/add-message-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { ChatCardComponent } from './chat-card/chat-card.component';
     MessageCardComponent,
     ChatComponent,
     ChatCardComponent,
+    AddMessageDialogComponent,
   ],
   imports: [
     AppRoutingModule,

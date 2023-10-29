@@ -1,14 +1,14 @@
 export interface Message {
-  id: number;
-  chatId: number;
-  authorId: number;
+  id: bigint;
+  chatId: bigint;
+  authorId: bigint;
   authorName: string;
   text: string;
   date: string;
 }
 
 export interface Chat {
-  id: number;
-  members: number[];
+  id: bigint;
+  members: bigint[];
   messages: Message[];
 }
