@@ -115,4 +115,14 @@ export class NewsProviderService {
       });
   }
 
+  public addNews(uid: bigint, text: string): Observable<void> {
+    return this.httpClient.post<void>(CLIENTS.NEWS_REPOSITORY.ADD_NEWS(), {
+      uid: uid.toString(),
+      text: text,
+      createdAt: (new Date()).toISOString().split('.')[0],
+    }, {
+      withCredentials: true,
+    });
+  }
+
 }

@@ -18,8 +18,5 @@ export class AppComponent {
     let dialogRef = this.dialog.open(AuthPopupComponent, {
       width: '400px',
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-    });
   };
 }

@@ -14,6 +14,7 @@ export class UserProfileComponent implements OnInit {
   public uid?: bigint;
   public userInfo?: UserInfo;
   public userNewsIdList?: bigint[];
+  public ownProfile = false;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -35,8 +36,13 @@ export class UserProfileComponent implements OnInit {
         const idStr = params.get('id');
         if (idStr == null) {
           this.redirectToUserProfile();
-        } else {
-          this.uid = BigInt(idStr);
+          return;
+        }
+
+        this.uid = BigInt(idStr);
+
+        if (this.uid == this.helper.getUid()) {
+          this.ownProfile = true;
         }
       },
     );

@@ -1,4 +1,4 @@
-<app-user-card *ngIf="userInfo" [userInfo]="userInfo"></app-user-card>
+<app-user-card *ngIf="userInfo" [userInfo]="userInfo" [showActions]="!ownProfile"></app-user-card>
 <br>
 <app-news-list *ngIf="userNewsIdList" [newsIdList]="userNewsIdList"></app-news-list>
 

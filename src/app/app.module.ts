@@ -27,6 +27,7 @@ import { NewsListComponent } from './news-list/news-list.component';
 
 import {CookieService} from 'ngx-cookie-service';
 import { UserListComponent } from './user-list/user-list.component';
+import { AddNewsDialogComponent } from './add-news-dialog/add-news-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { UserListComponent } from './user-list/user-list.component';
     RegistrationDialogComponent,
     NewsListComponent,
     UserListComponent,
+    AddNewsDialogComponent,
   ],
   imports: [
     AppRoutingModule,

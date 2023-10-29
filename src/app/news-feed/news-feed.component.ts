@@ -4,6 +4,8 @@ import {News} from '../types/news';
 
 import {NewsProviderService} from '../services/news-provider.service';
 import {HelperService} from '../services/helper.service';
+import {AddNewsDialogComponent} from '../add-news-dialog/add-news-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-news-feed',
@@ -16,6 +18,7 @@ export class NewsFeedComponent implements OnInit {
   public newsFeed: News[] = [];
 
   constructor(
+    private readonly dialog: MatDialog,
     private readonly newsProvider: NewsProviderService,
     private readonly helper: HelperService,
   ) {
@@ -25,13 +28,18 @@ export class NewsFeedComponent implements OnInit {
     this.getNewsFeed();
   }
 
-  getNewsFeed() {
+  private getNewsFeed() {
     this.newsProvider.getNewsFeed(this.helper.getUid()).subscribe({
       next: (news) => {
-        console.log(news);
         this.newsFeed.push(news);
       },
       error: (e) => console.error(e),
+    });
+  }
+
+  public openAddNewsPopup(): void {
+    let dialogRef = this.dialog.open(AddNewsDialogComponent, {
+      width: '400px',
     });
   }
 }

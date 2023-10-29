@@ -76,4 +76,13 @@ export class UserInfoProviderService {
       });
     });
   }
+
+  public addFriend(uid: bigint, friendUid: bigint): Observable<void> {
+    return this.httpClient.post<void>(CLIENTS.USER_TO_FRIEND_REPOSITORY.ADD_FRIEND(), {
+      uid: uid.toString(),
+      id: friendUid.toString(),
+    }, {
+      withCredentials: true,
+    });
+  }
 }

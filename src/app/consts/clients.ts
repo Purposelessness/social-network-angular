@@ -8,12 +8,14 @@ export const CLIENTS = {
   },
   NEWS_REPOSITORY: {
     GET_NEWS: (ids: bigint[]): string => `${BASE_URL}/news-repository?ids=${ids.join(',')}`,
+    ADD_NEWS: (): string => `${BASE_URL}/news-repository`,
   },
   NEWS_FEED: {
     GET_NEWS_FEED: (uid: bigint): string => `${BASE_URL}/news-feed/${uid}`,
   },
   USER_TO_FRIEND_REPOSITORY: {
     GET_FRIENDS: (uid: bigint): string => `${BASE_URL}/user-to-friend-repository/${uid}`,
+    ADD_FRIEND: (): string => `${BASE_URL}/user-to-friend-repository/`,
   },
   USER_TO_NEWS_REPOSITORY: {
     GET_NEWS_LIST: (uid: bigint): string => `${BASE_URL}/user-to-news-repository/${uid}`,

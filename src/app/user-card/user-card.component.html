@@ -23,4 +23,8 @@
     <span> {{ userInfo.birthDate }} </span>
   </mat-card-content>
 
+  <mat-card-actions *ngIf="showActions">
+    <button mat-button (click)="onAddUser()"> Add friend </button>
+  </mat-card-actions>
+
 </mat-card>
