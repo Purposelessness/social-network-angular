@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
+import {captureMessage} from '@sentry/angular-ivy';
+
 import {UserInfo} from '../types/user-info';
 import {UserInfoProviderService} from '../services/user-info-provider.service';
 import {HelperService} from '../services/helper.service';
@@ -39,10 +41,10 @@ export class FriendListComponent implements OnInit {
           next: (friendInfos) => {
             this.friendInfos = friendInfos;
           },
-          error: (e) => console.error(e),
+          error: (e) => captureMessage(`Error when getting friends info: ${e}`, 'error'),
         });
       },
-      error: (e) => console.error(e),
+      error: (e) => captureMessage(`Error when getting friends info: ${e}`, 'error'),
     });
   }
 }

@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UserInfo} from '../types/user-info';
 import {UserInfoProviderService} from '../services/user-info-provider.service';
 import {HelperService} from '../services/helper.service';
+import {captureMessage} from '@sentry/angular-ivy';
 
 @Component({
   selector: 'app-user-profile',
@@ -62,7 +63,7 @@ export class UserProfileComponent implements OnInit {
       next: (userInfo) => {
         this.userInfo = userInfo
       },
-      error: (e) => console.error(e),
+      error: (e) => captureMessage('Error when getting user info', 'error'),
     });
   }
 
@@ -73,7 +74,7 @@ export class UserProfileComponent implements OnInit {
 
     this.userInfoProviderService.getNewsListIds(this.uid).subscribe({
         next: (newsIds) => this.userNewsIdList = newsIds,
-        error: (e) => console.error(e),
+        error: (e) => captureMessage('Error when getting user news id list', 'error'),
       },
     );
   }

@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import {News} from '../types/news';
 import {NewsProviderService} from '../services/news-provider.service';
+import {captureMessage} from '@sentry/angular-ivy';
 
 @Component({
   selector: 'app-news-list',
@@ -23,7 +24,7 @@ export class NewsListComponent implements OnInit {
   private getNewsList(): void {
     this.newsProvider.getNewsList(this.newsIdList).subscribe({
       next: (news) => this.newsList.push(news),
-      error: (e) => console.error(e),
+      error: (e) => captureMessage('Error when getting news list', 'error'),
     });
   }
 }

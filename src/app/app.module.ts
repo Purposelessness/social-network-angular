@@ -1,10 +1,11 @@
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {CookieService} from 'ngx-cookie-service';
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
+import * as sentry from '@sentry/angular-ivy';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -34,7 +35,9 @@ import {MessageCardComponent} from './message-card/message-card.component';
 import {ChatComponent} from './chat/chat.component';
 import {ChatCardComponent} from './chat-card/chat-card.component';
 import {AddMessageDialogComponent} from './add-message-dialog/add-message-dialog.component';
-import { MainPageComponent } from './main-page/main-page.component';
+import {MainPageComponent} from './main-page/main-page.component';
+import {Router} from '@angular/router';
+import {TraceModule} from '@sentry/angular-ivy';
 
 const config: SocketIoConfig = {url: 'http://localhost:8080', options: {}};
 
@@ -76,8 +79,24 @@ const config: SocketIoConfig = {url: 'http://localhost:8080', options: {}};
     MatIconModule,
     MatTabsModule,
     SocketIoModule.forRoot(config),
+    TraceModule,
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    {
+      provide: ErrorHandler,
+      useValue: sentry.createErrorHandler({
+        showDialog: true,
+      }),
+    },
+    {
+      provide: sentry.TraceService,
+      deps: [Router],
+    },
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(public readonly trace: sentry.TraceService) {
+  }
+}

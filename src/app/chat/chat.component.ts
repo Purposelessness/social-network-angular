@@ -8,6 +8,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AddMessageDialogComponent} from '../add-message-dialog/add-message-dialog.component';
 import {UserInfoProviderService} from '../services/user-info-provider.service';
 import {UserInfo} from '../types/user-info';
+import {captureMessage} from '@sentry/angular-ivy';
 
 @Component({
   selector: 'app-chat',
@@ -35,14 +36,14 @@ export class ChatComponent implements OnInit {
           this.chat!.messages.push(message);
         }
       },
-      error: (e) => console.error(e),
+      error: (e) => captureMessage(`Error when getting messages from stream: ${e}`, 'error'),
     });
   }
 
   private getChat(): void {
     const chatIdStr = this.route.snapshot.paramMap.get('id');
     if (!chatIdStr) {
-      console.error('no chatId');
+      captureMessage('No chat id in chat component', 'info');
       return;
     }
     const chatId = BigInt(chatIdStr);
@@ -51,7 +52,7 @@ export class ChatComponent implements OnInit {
         this.chat = chat[0];
         this.fillAuthorName(this.chat);
       },
-      error: (e) => console.error(e),
+      error: (e) => captureMessage('Error when getting chat', 'error'),
     });
   }
 
@@ -66,7 +67,7 @@ export class ChatComponent implements OnInit {
           chat.messages[i].authorName = users[i].name;
         }
       },
-      error: (e) => console.error(e),
+      error: (e) => captureMessage('Error when filling author name', 'error'),
     });
   }
 
@@ -75,7 +76,7 @@ export class ChatComponent implements OnInit {
       next: (user) => {
         message.authorName = user.name;
       },
-      error: (e) => console.error(e),
+      error: (e) => captureMessage('Error when filling author name', 'error'),
     });
   }
 

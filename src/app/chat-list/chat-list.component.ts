@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
+import {captureMessage} from '@sentry/angular-ivy';
+
 import {Chat} from '../types/chat';
 import {ChatProviderService} from '../services/chat-provider.service';
 import {HelperService} from '../services/helper.service';
@@ -26,7 +28,7 @@ export class ChatListComponent implements OnInit {
     const uid = this.helper.getUid();
     this.chatProviderService.getUserChats(uid).subscribe({
       next: (chats) => this.chats = chats,
-      error: (e) => console.error(e),
+      error: (e) => captureMessage(`Error when getting charts: ${e}`, 'error'),
     });
   }
 }

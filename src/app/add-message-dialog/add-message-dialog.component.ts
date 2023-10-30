@@ -2,6 +2,8 @@ import {Component, Inject, Input} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
+import {captureMessage} from '@sentry/angular-ivy';
+
 import {HelperService} from '../services/helper.service';
 import {getErrorMessage} from '../utility/form';
 import {ChatProviderService} from '../services/chat-provider.service';
@@ -36,12 +38,12 @@ export class AddMessageDialogComponent {
   }
 
   public onSubmit(): void {
-    if (this.form.invalid) {
-      console.info('invalid form');
+    if (!this.chatId) {
+      captureMessage('No chat id in add-message-dialog form', 'info');
       return;
     }
-    if (!this.chatId) {
-      console.info('no chat id');
+    if (this.form.invalid) {
+      captureMessage('Invalid add-message-dialog form', 'info');
       return;
     }
 
@@ -53,10 +55,10 @@ export class AddMessageDialogComponent {
       date: (new Date()).toISOString().split('.')[0],
     }).subscribe({
       next: () => {
-        console.log('successfully added news');
+        captureMessage('Successfully added news', 'debug');
         this.dialogRef.close(this.form.value.message);
       },
-      error: (error) => console.log(error),
+      error: (error) => captureMessage('Error when adding message to chat', 'error'),
     });
   }
 }

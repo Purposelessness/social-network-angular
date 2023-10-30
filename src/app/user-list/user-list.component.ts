@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserInfoProviderService} from '../services/user-info-provider.service';
 import {UserInfo} from '../types/user-info';
 import {HelperService} from '../services/helper.service';
+import {captureMessage} from '@sentry/angular-ivy';
 
 @Component({
   selector: 'app-user-list',
@@ -29,7 +30,7 @@ export class UserListComponent implements OnInit {
       next: (users) => {
         this.users = users.filter((user) => BigInt(user.id) !== this.uid);
       },
-      error: (e) => console.error(e),
+      error: (e) => captureMessage('Error when getting users', 'error'),
     });
   }
 }

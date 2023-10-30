@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {getErrorMessage} from '../utility/form';
 import {NewsProviderService} from '../services/news-provider.service';
 import {HelperService} from '../services/helper.service';
+import {captureMessage} from '@sentry/angular-ivy';
 
 @Component({
   selector: 'app-add-news-dialog',
@@ -34,16 +35,16 @@ export class AddNewsDialogComponent {
 
   public onSubmit(): void {
     if (this.form.invalid) {
-      console.info('invalid form');
+      captureMessage('Invalid add-news-dialog form', 'info');
       return;
     }
     const uid = this.helper.getUid();
     this.newsProviderService.addNews(uid, this.form.value.message).subscribe({
       next: () => {
-        console.log('successfully added news');
+        captureMessage('Successfully added news', 'debug');
         this.dialogRef.close(this.form.value.message);
       },
-      error: (error) => console.log(error),
+      error: (error) => captureMessage('Error when adding news', 'error'),
     });
   }
 }

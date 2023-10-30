@@ -6,8 +6,7 @@ import {NewsProviderService} from '../services/news-provider.service';
 import {HelperService} from '../services/helper.service';
 import {AddNewsDialogComponent} from '../add-news-dialog/add-news-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {WARN} from '@angular/compiler-cli/src/ngtsc/logging/src/console_logger';
-import {error} from '@angular/compiler-cli/src/transformers/util';
+import {captureMessage} from '@sentry/angular-ivy';
 
 @Component({
   selector: 'app-news-feed',
@@ -32,7 +31,7 @@ export class NewsFeedComponent implements OnInit {
       next: (news) => {
         this.getNewsFeed();
       },
-      error: (err) => console.error(err),
+      error: (err) => captureMessage('Error when getting news stream', 'error'),
     })
   }
 
@@ -41,7 +40,7 @@ export class NewsFeedComponent implements OnInit {
       next: (news) => {
         this.newsFeed.push(news);
       },
-      error: (e) => console.error(e),
+      error: (e) => captureMessage('Error when getting news feed', 'error'),
     });
   }
 

@@ -5,6 +5,7 @@ import {UserInfoProviderService} from '../services/user-info-provider.service';
 import {HelperService} from '../services/helper.service';
 import {ChatProviderService} from '../services/chat-provider.service';
 import {DOMAIN} from '../consts/clients';
+import {captureMessage} from '@sentry/angular-ivy';
 
 @Component({
   selector: 'app-user-card',
@@ -28,16 +29,16 @@ export class UserCardComponent {
   public onAddUser() {
     const myUid = this.helper.getUid();
     this.userInfoProviderService.addFriend(myUid, this.userInfo!.id).subscribe({
-      next: () => console.log('successfully added friend'),
-      error: (e) => console.error(e),
+      next: () => captureMessage('Successfully added friend', 'debug'),
+      error: (e) => captureMessage(`Error when adding user: ${e}`, 'error'),
     });
   }
 
   public onCreateChat() {
     const myUid = this.helper.getUid();
     this.chatProviderService.createChat([myUid, this.userInfo!.id]).subscribe({
-      next: () => console.log('successfully created chat'),
-      error: (e) => console.error(e),
+      next: () => captureMessage('Successfully created chat', 'debug'),
+      error: (e) => captureMessage(`Error when creating chat: ${e}`, 'error'),
     });
   }
 }

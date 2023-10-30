@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import {getErrorMessage} from '../utility/form';
 import {AuthProxyControllerService} from '../services/auth-proxy-controller.service';
+import {captureMessage} from '@sentry/angular-ivy';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -26,7 +27,7 @@ export class AuthDialogComponent {
 
   public onSubmit(): void {
     if (this.form.invalid) {
-      console.info('invalid form');
+      captureMessage('Invalid auth-dialog form', 'info');
       return;
     }
     this.authProxyControllerService.login({
@@ -34,10 +35,10 @@ export class AuthDialogComponent {
       password: this.form.value.password,
     }).subscribe({
       next: () => {
-        console.log('successfully logged in');
+        captureMessage('Successfully logged in', 'debug');
         this.dialogRef.close();
       },
-      error: (error) => console.log(error),
+      error: (error) => captureMessage('Error when logging in', 'error'),
     });
   }
 

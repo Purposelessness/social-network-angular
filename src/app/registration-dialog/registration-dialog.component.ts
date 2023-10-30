@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import {getErrorMessage} from '../utility/form';
 import {AuthProxyControllerService} from '../services/auth-proxy-controller.service';
+import {captureMessage} from '@sentry/angular-ivy';
 
 @Component({
   selector: 'app-registration-dialog',
@@ -31,7 +32,7 @@ export class RegistrationDialogComponent {
 
   public onSubmit(): void {
     if (this.form.invalid) {
-      console.info('invalid form');
+      captureMessage('Invalid form', 'info');
       return;
     }
     this.authProxyControllerService.register({
@@ -42,10 +43,10 @@ export class RegistrationDialogComponent {
       password: this.form.value.password,
     }).subscribe({
       next: () => {
-        console.log('successfully registered');
+        captureMessage('Successfully registered', 'debug');
         this.dialogRef.close();
       },
-      error: (error) => console.log(error),
+      error: (error) => captureMessage(`Error when submitting registration form`, 'error'),
     });
   }
 
