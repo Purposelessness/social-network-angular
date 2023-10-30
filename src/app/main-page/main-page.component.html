@@ -6,3 +6,4 @@
   Login or register
 </h2>
 <button mat-button type="button" (click)="openAuthPopup()">Login/Register</button>
+<a href="{{ DOMAIN }}" *ngIf="role && role === Role.ADMIN">Admin page</a>
